@@ -1,21 +1,17 @@
 import logo from './logo.svg';
 import React, { Component } from 'react';
 import './App.css';
-import FormGroup from 'react-bootstrap/FormGroup'
-import FormLabel from 'react-bootstrap/FormLabel'
-import FormControl from 'react-bootstrap/FormControl'
-
-
 
 const marked = require("marked")
 
 const outputBox = {
+      display: 'inline-block',
       borderStyle: 'solid',
       height: '10rem',
       width: '50rem',
       position: 'relative',
       top: '5rem',
-      left: '34.7rem'
+      wordBreak: 'break-word'
 }
 
 const inputBox = {
@@ -25,7 +21,7 @@ const inputBox = {
   position: 'relative',
   top: '5rem',
   marginBottom: '3rem',
-  textAlign: 'center'
+  textAlign: 'center',
 }
 
 class App extends Component{
@@ -36,6 +32,7 @@ state={
   updateMarkdown = function(markdown){
     this.setState({markdown});
   }
+  
 
   render(){
     let {markdown} = this.state;
@@ -43,15 +40,18 @@ state={
     return (
       <div className="App container">
         <div>
-          <FormGroup controlID="formControlTextarea">
-            <FormControl style={inputBox}componentClass="textarea" placeholder="Markdown-Input" value={markdown} onChange={(event)=>this.updateMarkdown(event.target.value)}></FormControl>
-          </FormGroup>
+          <h1>Markdown</h1>
+          <p>This project is part of the FreeCodeCamp curriculum built using ReactJS and React Bootstrap. 
+            <br></br>
+            The Markdown output will output any text within the Markdown input area in Real time. 
+          </p>
         </div>
-        <div style={outputBox} >
+        <div>
+          <textarea id="editor" style={inputBox} componentClass="textarea" placeholder="Markdown-Input" value={markdown} onChange={(event)=>this.updateMarkdown(event.target.value)}></textarea>
+        </div>
+        <div style={outputBox} id="preview">
           <h2>Markdown Output</h2>
-          <div dangerouslySetInnerHTML = {{__html: marked(markdown)}}>
-            
-          </div>
+          <div dangerouslySetInnerHTML = {{__html: marked(markdown)}}></div>
         </div>
       </div>
     );
